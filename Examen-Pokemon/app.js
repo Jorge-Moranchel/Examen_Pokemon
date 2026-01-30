@@ -3,10 +3,10 @@ const contentData = document.getElementById("contentData");
 const inputBuscar = document.getElementById("inputBuscar");
 
 const obtenerDatos = async () => {
-    const bebida = inputBuscar.value;
+    const id = inputBuscar.value;
 
     const response = await fetch(
-        `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${bebida}`
+        `https://pokeapi.co/api/v2/pokemon/{id}`
     );
 
     console.log(response);
@@ -22,9 +22,9 @@ const obtenerDatos = async () => {
 
         divX.innerHTML = `
         <div class="card mb-3">
-            <img src="${element.strDrinkThumb}" class="card-img-top">
+            <img src="${element.}" class="card-img-top">
             <div class="card-body">
-                <h5 class="card-title">${element.strDrink}</h5>
+                <h5 class="card-title">${element.}</h5>
             </div>
         </div>
         `;
