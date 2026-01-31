@@ -3,34 +3,29 @@ const contentData = document.getElementById("contentData");
 const inputBuscar = document.getElementById("inputBuscar");
 
 const obtenerDatos = async () => {
-    const id = inputBuscar.value;
+    const id = inputBuscar.value.toLowerCase();
 
     const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/{id}`
+        `https://pokeapi.co/api/v2/pokemon/${id}`
     );
 
-    console.log(response);
+    if (!response.ok) {
+        contentData.innerHTML = "<p>Pokémon no encontrado</p>";
+        return;
+    }
 
     const data = await response.json();
-    console.log(data);
 
-    contentData.innerHTML = "<h2>Resultados</h2>";
-
-    data.sprites.forEach(element => {
-        const divX = document.createElement("div");
-        divX.classList.add("col-md-4");
-
-        divX.innerHTML = `
-        <div class="card mb-3">
-            <img src="${element.}" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">${element.}</h5>
+    contentData.innerHTML = `
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="${data.sprites.front_default}" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title text-capitalize">${data.name}</h5>
+                </div>
             </div>
         </div>
-        `;
-
-        contentData.appendChild(divX);
-    });
+    `;
 };
 
 btnGetDatos.addEventListener("click", obtenerDatos);
